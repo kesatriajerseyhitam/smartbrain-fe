@@ -22,26 +22,39 @@ const particlesOptions = {
 	}
 }
 const initialState = {
-	input			: '',
-	imageUrl	: '',
-	box				: {},
-	route			: 'home',
-	isSignedI	: false,
-	user			: {
-		id			: ``,
-		name		: ``,
-		email		: ``,
-		password: ``,
-		entries	: 0,
-		joined	: '',
+	input				: '',
+	imageUrl		: '',
+	box					: {},
+	route				: 'home',
+	isSignedIn	: false,
+	user				: {
+		id				: ``,
+		name			: ``,
+		email			: ``,
+		password	: ``,
+		entries		: 0,
+		joined		: '',
 	}
 }
 
 class App extends Component {
-	constructor() {
-		super();
-		this.state = this.initialState
-	}
+  constructor() {
+    super();
+    this.state = {
+      input: '',
+      imageUrl: '',
+      box: {},
+      route: 'signin',
+      isSignedIn: false,
+      user: {
+        id: '',
+        name: '',
+        email: '',
+        entries: 0,
+        joined: ''
+      }
+    }
+  }
 
 	calculateFaceLocation = (data) => {
 		const clarifaiFace = data.outputs[0].data.regions[0].region_info.bounding_box;
@@ -58,14 +71,13 @@ class App extends Component {
 	displayBox 						= (box) => this.setState({box: box})
 	loadUser 							= (data) => {
 		this.setState({user: {
-				id: data.id,
-				name: data.name,
-				email: data.email,
-				entries: data.entries,
-				joined: data.joined
+				id			: data.id,
+				name		: data.name,
+				email		: data.email,
+				entries	: data.entries,
+				joined	: data.joined
 			}
 		})
-		console.log(this.state);
 	}
 	onInputChange 				= (event) => this.setState({input: event.target.value });
 	onSubmit 							= () => {
@@ -98,6 +110,7 @@ class App extends Component {
 	}
 
 	render() {
+		console.log(this.state);
 		const { isSignedIn, imageUrl, route, box } = this.state
 		return (
 			<div className="App">
